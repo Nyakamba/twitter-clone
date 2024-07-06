@@ -41,6 +41,7 @@ export const followUnfollowUser = async (req, res) => {
       await User.findByIdAndUpdate(req.user._id, {
         $pull: { following: id },
       });
+      //return the id of the user as a response
       res.status(200).json({ message: "User unfollowed sunccessfully" });
     } else {
       //follow the user
@@ -56,10 +57,14 @@ export const followUnfollowUser = async (req, res) => {
       });
 
       await newNotification.save();
-      res.status(200).json({ message: "User followed sunccessfully" });
+
+      //return the id of the user as a response
+      res.status(200).json({ message: "User followed successfully" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
     console.log("Error in followUnfollowUser:", error.message);
   }
 };
+
+export const getSuggestedUsers = async (req, res) => {};
