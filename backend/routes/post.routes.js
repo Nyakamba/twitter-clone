@@ -1,14 +1,15 @@
 import express from "express";
-import { protectRoute } from "../middleware/protectRoute.js";
-import //   commentOnPost,
-//   createPost,
-//   deletePost,
-//getAllPosts,
-//   getFollowingPosts,
-//   getLikedPosts,
-//   getUserPosts,
-//   likeUnlikePost,
-"../controllers/post.controller.js";
+import { protectRoute } from "../middlewares/protectRoute.js";
+import {
+  //   commentOnPost,
+  createPost,
+  //   deletePost,
+  //getAllPosts,
+  //   getFollowingPosts,
+  //   getLikedPosts,
+  //   getUserPosts,
+  //   likeUnlikePost,
+} from "../controllers/post.controllers.js";
 
 const router = express.Router();
 
