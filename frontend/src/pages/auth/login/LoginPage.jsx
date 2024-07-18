@@ -15,6 +15,8 @@ const LoginPage = () => {
     password: "",
   });
 
+  const queryClient = useQueryClient();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
