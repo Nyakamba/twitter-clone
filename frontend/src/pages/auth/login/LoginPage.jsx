@@ -16,10 +16,17 @@ const LoginPage = () => {
   });
 
   const queryClient = useQueryClient();
+  const { mutate, isError, isPending, error } = useMutation({
+    onSuccess: () => {
+      toast.success("Logged in created successfully");
+
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutate(formData);//comment
+    mutate(formData);
   };
 
   const handleInputChange = (e) => {
