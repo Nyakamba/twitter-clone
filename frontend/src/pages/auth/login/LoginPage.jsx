@@ -18,7 +18,7 @@ const LoginPage = () => {
   const queryClient = useQueryClient();
   const { mutate, isError, isPending, error } = useMutation({
     onSuccess: () => {
-      toast.success("Logged in created successfully");
+      toast.success("Logged in created successfullyy");
 
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
