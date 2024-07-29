@@ -13,6 +13,7 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    email: "",
   });
 
   const queryClient = useQueryClient();
