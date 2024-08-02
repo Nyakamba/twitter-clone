@@ -17,9 +17,33 @@ const LoginPage = () => {
   });
 
   const queryClient = useQueryClient();
-  const { mutate, isError, isPending, error } = useMutation({
+  const {
+    mutate: loginMutation,
+    isError,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: async ({ username, password }) => {
+      try {
+        const res = await fetch("api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || "Something went wrong");
+        }
+        return data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
     onSuccess: () => {
-      toast.success("Logged in  successfully");
+      toast.success("Login  successful");
 
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
     },
@@ -27,7 +51,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    mutate(formData);
+    loginMutation(formData);
   };
 
   const handleInputChange = (e) => {
@@ -67,9 +91,9 @@ const LoginPage = () => {
             />
           </label>
           <button className="btn rounded-full btn-primary text-white">
-            Login
+            {isPending ? "Loading" : "Login"}
           </button>
-          {isError && <p className="text-red-500">Something went wrong</p>}
+          {isError && <p className="text-red-500">{error.message}</p>}
         </form>
         <div className="flex flex-col gap-2 mt-4">
           <p className="text-white text-lg">{"Don't"} have an account?</p>
